@@ -1,0 +1,12 @@
+database.gda_createTable({
+	name: TABLE_TEMPERATURES,
+	columns: [{
+		name: COLUMN_TEMPERATURE_VALUE,
+		type: GdaDataType_LONG
+	}]
+});
+
+annuary.groups_create({
+	group: GROUP_ID_ALERT,
+	owner: CONTEXT_TEMPERATURE
+});

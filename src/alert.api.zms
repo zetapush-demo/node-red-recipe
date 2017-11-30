@@ -1,0 +1,9 @@
+@TemperatureContext
+macroscript addUserToAlertGroup(
+	string userId
+) {
+	annuary.addUser({
+		user: userId,
+		group: GROUP_ID_ALERT
+	});
+}

@@ -1,0 +1,42 @@
+@TemperatureContext
+macroscript getCurrentTemperature() {
+	const { result: { content } } = database.list({
+		columns: [{
+			column: COLUMN_TEMPERATURE_VALUE
+		}],
+		table : TABLE_TEMPERATURES,
+		page: {
+			direction: 'DESC'
+		}
+	});
+} return /*renvoie les données à l'utilisateur qui a demandé */ {
+	/** The current temperature */
+	temperature: content[0].value
+} on channel __selfName
+
+@TemperatureContext
+macroscript pushTemperature(
+	@NotNull number temperature
+) {
+	trace(pushTemperature.name, temperature);
+	database.puts({
+		table: TABLE_TEMPERATURES,
+		rows: [{
+			key: time:now(),
+			data: {
+				[COLUMN_TEMPERATURE_VALUE]: temperature
+			}
+		}]
+	});
+	const target = str:join(':', annuary, CONTEXT_TEMPERATURE, GROUP_ID_ALERT);
+} broadcast(target) {
+	temperature
+} on channel __selfName
+
+@TemperatureContext
+@RequestMapping("push/temperature") 
+macroscript pushFromHttp(
+	@NotNull number temperature
+) {
+	await pushTemperature({ temperature }) loud;
+}

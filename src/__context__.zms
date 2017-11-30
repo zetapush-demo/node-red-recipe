@@ -1,0 +1,2 @@
+// Définition du context partagé
+macroscript_annotation TemperatureContext = @Sudo(CONTEXT_TEMPERATURE);

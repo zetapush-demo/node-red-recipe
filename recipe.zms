@@ -1,0 +1,20 @@
+recipe com.zetapush.nodered 1.0.0;
+
+/* CONSTANTS */
+
+const GROUP_ID_ALERT = 'alert';
+const TABLE_TEMPERATURES = 'temperatures';
+const COLUMN_TEMPERATURE_VALUE = 'value';
+const CONTEXT_TEMPERATURE = 'TEMPERATURE';
+
+/* SERVICES */
+
+service authentication = new weak();
+
+service database = new gda();
+
+service annuary = new groups();
+
+service api = new macro() for 'src';
+
+service notifier = new trigger();

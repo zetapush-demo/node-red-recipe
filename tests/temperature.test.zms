@@ -1,0 +1,15 @@
+zms_test test_pushTemperature {
+	zms_test_setup {
+		import zms_test_setup login_as_anonymous;
+	}
+
+	zms_add_handler(anonymous, pushTemperature, (result, errors) => {
+		trace(pushTemperature.name, result, errors);
+		
+		zms_test_success;
+	});
+
+	sudo anonymous call pushTemperature({
+		temperature : 42
+	});
+}
